@@ -13,31 +13,31 @@ Implementation task board derived from the documents in `docs/`.
 
 ## M1 - Project Setup
 
-- [ ] Create the recommended FastAPI structure under `app/`.
-- [ ] Add `app/main.py`.
-- [ ] Add `app/api/routes.py`.
-- [ ] Add `app/core/config.py`.
-- [ ] Add schema modules for analysis and errors.
-- [ ] Add service modules for file extraction, section detection, keywords, embeddings, scoring, and feedback.
-- [ ] Add utility modules for text cleaning and validators.
-- [ ] Add dependency management for the backend.
-- [ ] Configure FastAPI app title and version.
-- [ ] Add `/health` endpoint returning `{"status": "ok"}`.
-- [ ] Add `/api/v1` router.
-- [ ] Expose FastAPI docs at `/docs` and `/redoc`.
+- [x] Create the recommended FastAPI structure under `app/`.
+- [x] Add `app/main.py`.
+- [x] Add `app/api/routes.py`.
+- [x] Add `app/core/config.py`.
+- [x] Add schema modules for analysis and errors.
+- [x] Add service modules for file extraction, section detection, keywords, embeddings, scoring, and feedback.
+- [x] Add utility modules for text cleaning and validators.
+- [x] Add dependency management for the backend.
+- [x] Configure FastAPI app title and version.
+- [x] Add `/health` endpoint returning `{"status": "ok"}`.
+- [x] Add `/api/v1` router.
+- [x] Expose FastAPI docs at `/docs` and `/redoc`.
 
 ## M2 - File Validation and Extraction
 
-- [ ] Implement required `cv_file` validation.
-- [ ] Implement required `job_description` validation.
-- [ ] Enforce supported file extensions: `.pdf`, `.docx`.
-- [ ] Enforce recommended 5 MB file size limit.
-- [ ] Validate content type when practical.
-- [ ] Implement PDF text extraction with `PyMuPDF`.
-- [ ] Implement DOCX text extraction with `python-docx`.
-- [ ] Extract DOCX paragraphs and table text where practical.
-- [ ] Return `TEXT_EXTRACTION_FAILED` when readable CV text cannot be extracted.
-- [ ] Ensure uploaded CV files are not permanently stored.
+- [x] Implement required `cv_file` validation.
+- [x] Implement required `job_description` validation.
+- [x] Enforce supported file extensions: `.pdf`, `.docx`.
+- [x] Enforce recommended 5 MB file size limit.
+- [x] Validate content type when practical.
+- [x] Implement PDF text extraction with `PyMuPDF`.
+- [x] Implement DOCX text extraction with `python-docx`.
+- [x] Extract DOCX paragraphs and table text where practical.
+- [x] Return `TEXT_EXTRACTION_FAILED` when readable CV text cannot be extracted.
+- [x] Ensure uploaded CV files are not permanently stored.
 
 ## M3 - Text Cleaning and NLP Basics
 
