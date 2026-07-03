@@ -1,4 +1,15 @@
-"""Analysis request and response schemas.
+"""Analysis request and response schemas."""
 
-Concrete analysis models will be added when the `/api/v1/analyze` endpoint is implemented.
-"""
+from typing import Literal
+
+from pydantic import BaseModel
+
+SectionStatus = Literal["present", "weak", "missing"]
+
+
+class SectionAnalysisItem(BaseModel):
+    """Section status and user-facing Turkish message."""
+
+    section: str
+    status: SectionStatus
+    message: str

@@ -60,17 +60,17 @@ Implementation task board derived from the documents in `docs/`.
 
 ## M4 - Section Detection
 
-- [ ] Define heading dictionaries for Turkish and English section names.
-- [ ] Detect contact information.
-- [ ] Detect professional summary or profile.
-- [ ] Detect skills.
-- [ ] Detect work experience.
-- [ ] Detect education.
-- [ ] Detect projects.
-- [ ] Detect certifications.
-- [ ] Assign each section one status: `present`, `weak`, or `missing`.
-- [ ] Mark sections weak when they are short, generic, or lack useful job-relevant detail.
-- [ ] Generate Turkish section messages for each section result.
+- [x] Define heading dictionaries for Turkish and English section names.
+- [x] Detect contact information.
+- [x] Detect professional summary or profile.
+- [x] Detect skills.
+- [x] Detect work experience.
+- [x] Detect education.
+- [x] Detect projects.
+- [x] Detect certifications.
+- [x] Assign each section one status: `present`, `weak`, or `missing`.
+- [x] Mark sections weak when they are short, generic, or lack useful job-relevant detail.
+- [x] Generate Turkish section messages for each section result.
 
 ## M5 - Embeddings and Scoring
 
