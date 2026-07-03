@@ -27,8 +27,8 @@ def extract_pdf_text(content: bytes) -> str:
     try:
         document = fitz.open(stream=content, filetype="pdf")
         text_parts = [page.get_text("text") for page in document]
-    except Exception as exc:
-        raise_api_error(ErrorCode.TEXT_EXTRACTION_FAILED) from exc
+    except Exception:
+        raise_api_error(ErrorCode.TEXT_EXTRACTION_FAILED)
     finally:
         if document is not None:
             document.close()
@@ -42,8 +42,8 @@ def extract_docx_text(content: bytes) -> str:
         document = Document(BytesIO(content))
         text_parts = _extract_docx_paragraphs(document)
         text_parts.extend(_extract_docx_tables(document))
-    except Exception as exc:
-        raise_api_error(ErrorCode.TEXT_EXTRACTION_FAILED) from exc
+    except Exception:
+        raise_api_error(ErrorCode.TEXT_EXTRACTION_FAILED)
 
     return _require_readable_text("\n".join(text_parts))
 

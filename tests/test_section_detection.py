@@ -76,6 +76,35 @@ def test_detect_sections_with_turkish_headings() -> None:
     assert result["certifications"]["status"] == "present"
 
 
+def test_detect_sections_with_common_turkish_cv_heading_variants() -> None:
+    cv_text = """
+    \u0130\u015e/KAR\u0130YER HEDEF\u0130
+    Python, FastAPI ve REST API geli\u015ftirme alan\u0131nda backend geli\u015ftirici olarak ilerlemek istiyorum.
+
+    B\u0130LG\u0130SAYAR
+    Python, FastAPI, Docker, SQL, PostgreSQL, GitHub
+
+    YABANCI D\u0130L
+    \u0130ngilizce B2, teknik dok\u00fcman okuma ve yaz\u0131\u015fma
+
+    E\u011e\u0130T\u0130M DURUMU
+    Bilgisayar M\u00fchendisli\u011fi Lisans, 2020
+
+    PROJE VE STAJLAR
+    SmartCV Analyzer - FastAPI, Docker, REST API ve PostgreSQL kullanan CV analiz projesi.
+    """
+
+    result = detect_sections(cv_text)
+    blocks = extract_section_blocks(cv_text)
+
+    assert result["summary"]["status"] == "present"
+    assert result["skills"]["status"] == "present"
+    assert result["education"]["status"] == "present"
+    assert result["projects"]["status"] == "present"
+    assert "Python" in blocks["skills"]
+    assert "\u0130ngilizce" in blocks["skills"]
+
+
 def test_missing_sections_are_reported_as_missing() -> None:
     result = detect_sections("John Doe\njohn@example.com\nPython developer")
 

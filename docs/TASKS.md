@@ -98,25 +98,25 @@ Implementation task board derived from the documents in `docs/`.
 
 ## M7 - Analyze API
 
-- [ ] Implement `POST /api/v1/analyze`.
-- [ ] Accept `multipart/form-data`.
-- [ ] Use form field `cv_file`.
-- [ ] Use form field `job_description`.
-- [ ] Connect validation, extraction, cleaning, section detection, keyword matching, embeddings, scoring, and feedback services.
-- [ ] Return `overall_score`.
-- [ ] Return `semantic_similarity`.
-- [ ] Return `matched_keywords`.
-- [ ] Return `missing_keywords`.
-- [ ] Return `section_analysis`.
-- [ ] Return `suggestions`.
-- [ ] Return `extracted_cv_text_preview`.
-- [ ] Ensure response schema matches `docs/API_SPEC.md`.
-- [ ] Return `400` with `MISSING_FILE` for missing file.
-- [ ] Return `400` with `EMPTY_JOB_DESCRIPTION` for empty job description.
-- [ ] Return `415` with `UNSUPPORTED_FILE_TYPE` for unsupported uploads.
-- [ ] Return `413` with `FILE_TOO_LARGE` for oversized uploads.
-- [ ] Return `422` with `TEXT_EXTRACTION_FAILED` for unreadable files.
-- [ ] Return `500` with `ANALYSIS_FAILED` for unexpected analysis failures.
+- [x] Implement `POST /api/v1/analyze`.
+- [x] Accept `multipart/form-data`.
+- [x] Use form field `cv_file`.
+- [x] Use form field `job_description`.
+- [x] Connect validation, extraction, cleaning, section detection, keyword matching, embeddings, scoring, and feedback services.
+- [x] Return `overall_score`.
+- [x] Return `semantic_similarity`.
+- [x] Return `matched_keywords`.
+- [x] Return `missing_keywords`.
+- [x] Return `section_analysis`.
+- [x] Return `suggestions`.
+- [x] Return `extracted_cv_text_preview`.
+- [x] Ensure response schema matches `docs/API_SPEC.md`.
+- [x] Return `400` with `MISSING_FILE` for missing file.
+- [x] Return `400` with `EMPTY_JOB_DESCRIPTION` for empty job description.
+- [x] Return `415` with `UNSUPPORTED_FILE_TYPE` for unsupported uploads.
+- [x] Return `413` with `FILE_TOO_LARGE` for oversized uploads.
+- [x] Return `422` with `TEXT_EXTRACTION_FAILED` for unreadable files.
+- [x] Return `500` with `ANALYSIS_FAILED` for unexpected analysis failures.
 
 ## M8 - Frontend
 

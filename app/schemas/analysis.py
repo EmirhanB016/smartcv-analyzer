@@ -15,6 +15,18 @@ class SectionAnalysisItem(BaseModel):
     message: str
 
 
+class AnalysisResponse(BaseModel):
+    """Full CV analysis response returned by the analyze endpoint."""
+
+    overall_score: int
+    semantic_similarity: float
+    matched_keywords: list[str]
+    missing_keywords: list[str]
+    section_analysis: list[SectionAnalysisItem]
+    suggestions: list[str]
+    extracted_cv_text_preview: str
+
+
 class FeedbackResult(BaseModel):
     """Deterministic Turkish feedback output."""
 

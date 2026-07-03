@@ -77,8 +77,11 @@ GENERIC_TERMS = {
     "good",
     "gorev",
     "gorevler",
+    "kullanarak",
+    "alacaksiniz",
     "guc",
     "guzel",
+    "gelistirmek",
     "high",
     "iyi",
     "job",
@@ -90,6 +93,7 @@ GENERIC_TERMS = {
     "responsibilities",
     "role",
     "skills",
+    "sorumluluklar",
     "strong",
     "team",
     "work",
@@ -184,7 +188,9 @@ TECHNICAL_TERMS = set(CANONICAL_DISPLAY) | {
 
 IMPORTANT_PHRASES = {
     "api development",
+    "api gelistirme",
     "backend development",
+    "backend gelistirme",
     "cloud deployment",
     "data analysis",
     "data engineering",
@@ -194,6 +200,7 @@ IMPORTANT_PHRASES = {
     "software development",
     "unit testing",
     "web development",
+    "yazilim gelistirme",
 }
 
 METHODOLOGY_TERMS = {
@@ -325,17 +332,19 @@ def _is_useful_ngram(tokens: list[str], canonical: str) -> bool:
     if any(token in STOP_WORDS for token in tokens):
         return False
 
-    if canonical in SYNONYM_VARIANTS or canonical in IMPORTANT_PHRASES:
+    if (
+        canonical in SYNONYM_VARIANTS
+        or canonical in IMPORTANT_PHRASES
+        or canonical in METHODOLOGY_TERMS
+        or canonical in CANONICAL_DISPLAY
+    ):
         return True
 
     if len(tokens) == 1:
         token = tokens[0]
         return token in TECHNICAL_TERMS or token in METHODOLOGY_TERMS
 
-    return (
-        any(token in TECHNICAL_TERMS for token in tokens)
-        or canonical in METHODOLOGY_TERMS
-    )
+    return False
 
 
 def _score_ngram(tokens: list[str], canonical: str) -> int:
