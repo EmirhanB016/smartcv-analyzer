@@ -1,4 +1,15 @@
-"""Scoring service placeholder.
+"""Compatibility wrapper for scoring service functions."""
 
-Compatibility score calculation will be implemented in a later milestone.
-"""
+from app.services.scoring import (
+    SECTION_STATUS_VALUES,
+    calculate_keyword_match_ratio,
+    calculate_overall_score,
+    calculate_section_score,
+)
+
+__all__ = [
+    "SECTION_STATUS_VALUES",
+    "calculate_keyword_match_ratio",
+    "calculate_overall_score",
+    "calculate_section_score",
+]

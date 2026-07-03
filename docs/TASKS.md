@@ -74,18 +74,18 @@ Implementation task board derived from the documents in `docs/`.
 
 ## M5 - Embeddings and Scoring
 
-- [ ] Add `sentence-transformers` dependency.
-- [ ] Use `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`.
-- [ ] Load the embedding model lazily or at application startup.
-- [ ] Generate an embedding for cleaned CV text.
-- [ ] Generate an embedding for cleaned job-description text.
-- [ ] Calculate cosine similarity.
-- [ ] Clamp semantic similarity to `0..1`.
-- [ ] Calculate keyword match ratio.
-- [ ] Calculate section score using `present = 1.0`, `weak = 0.5`, `missing = 0.0`.
-- [ ] Combine score components with weights: 50% semantic similarity, 30% keyword match, 20% section completeness.
-- [ ] Round the final score to the nearest integer.
-- [ ] Clamp `overall_score` to `0..100`.
+- [x] Add `sentence-transformers` dependency.
+- [x] Use `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`.
+- [x] Load the embedding model lazily or at application startup.
+- [x] Generate an embedding for cleaned CV text.
+- [x] Generate an embedding for cleaned job-description text.
+- [x] Calculate cosine similarity.
+- [x] Clamp semantic similarity to `0..1`.
+- [x] Calculate keyword match ratio.
+- [x] Calculate section score using `present = 1.0`, `weak = 0.5`, `missing = 0.0`.
+- [x] Combine score components with weights: 50% semantic similarity, 30% keyword match, 20% section completeness.
+- [x] Round the final score to the nearest integer.
+- [x] Clamp `overall_score` to `0..100`.
 
 ## M6 - Feedback Generation
 
