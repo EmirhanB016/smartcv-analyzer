@@ -41,22 +41,22 @@ Implementation task board derived from the documents in `docs/`.
 
 ## M3 - Text Cleaning and NLP Basics
 
-- [ ] Implement whitespace normalization.
-- [ ] Remove excessive blank lines.
-- [ ] Trim leading and trailing text.
-- [ ] Preserve Turkish characters in display text.
-- [ ] Create lowercase normalized copies for matching.
-- [ ] Define Turkish and English stop-word lists.
-- [ ] Implement rule-based keyword extraction from job descriptions.
-- [ ] Extract unigrams, bigrams, and selected trigrams.
-- [ ] Prefer technical terms, tools, frameworks, responsibilities, and methodologies.
-- [ ] Deduplicate keywords case-insensitively.
-- [ ] Limit extracted keywords to the top 20-30 terms.
-- [ ] Add a small synonym/variant map for common software terms.
-- [ ] Implement case-insensitive keyword matching against CV text.
-- [ ] Support phrase matching for terms such as `REST API` and `machine learning`.
-- [ ] Calculate `matched_keywords`.
-- [ ] Calculate `missing_keywords`.
+- [x] Implement whitespace normalization.
+- [x] Remove excessive blank lines.
+- [x] Trim leading and trailing text.
+- [x] Preserve Turkish characters in display text.
+- [x] Create lowercase normalized copies for matching.
+- [x] Define Turkish and English stop-word lists.
+- [x] Implement rule-based keyword extraction from job descriptions.
+- [x] Extract unigrams, bigrams, and selected trigrams.
+- [x] Prefer technical terms, tools, frameworks, responsibilities, and methodologies.
+- [x] Deduplicate keywords case-insensitively.
+- [x] Limit extracted keywords to the top 20-30 terms.
+- [x] Add a small synonym/variant map for common software terms.
+- [x] Implement case-insensitive keyword matching against CV text.
+- [x] Support phrase matching for terms such as `REST API` and `machine learning`.
+- [x] Calculate `matched_keywords`.
+- [x] Calculate `missing_keywords`.
 
 ## M4 - Section Detection
 
