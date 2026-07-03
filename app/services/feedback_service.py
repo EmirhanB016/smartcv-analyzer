@@ -1,4 +1,17 @@
-"""Feedback service placeholder.
+"""Compatibility wrapper for deterministic feedback generation functions."""
 
-Turkish feedback generation will be implemented in a later milestone.
-"""
+from app.services.feedback import (
+    generate_keyword_suggestion,
+    generate_score_summary,
+    generate_section_suggestions,
+    generate_suggestions,
+    get_score_category,
+)
+
+__all__ = [
+    "generate_keyword_suggestion",
+    "generate_score_summary",
+    "generate_section_suggestions",
+    "generate_suggestions",
+    "get_score_category",
+]

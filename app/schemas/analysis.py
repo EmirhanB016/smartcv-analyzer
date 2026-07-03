@@ -13,3 +13,10 @@ class SectionAnalysisItem(BaseModel):
     section: str
     status: SectionStatus
     message: str
+
+
+class FeedbackResult(BaseModel):
+    """Deterministic Turkish feedback output."""
+
+    summary: str
+    suggestions: list[str]

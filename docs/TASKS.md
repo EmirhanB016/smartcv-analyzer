@@ -89,12 +89,12 @@ Implementation task board derived from the documents in `docs/`.
 
 ## M6 - Feedback Generation
 
-- [ ] Implement deterministic Turkish feedback templates.
-- [ ] Generate feedback based on score range: low, moderate, good, strong.
-- [ ] Mention missing keywords conditionally.
-- [ ] Avoid instructing users to add skills they do not actually have.
-- [ ] Prioritize the most important gaps.
-- [ ] Keep suggestions practical, specific, clear, and encouraging.
+- [x] Implement deterministic Turkish feedback templates.
+- [x] Generate feedback based on score range: low, moderate, good, strong.
+- [x] Mention missing keywords conditionally.
+- [x] Avoid instructing users to add skills they do not actually have.
+- [x] Prioritize the most important gaps.
+- [x] Keep suggestions practical, specific, clear, and encouraging.
 
 ## M7 - Analyze API
 
