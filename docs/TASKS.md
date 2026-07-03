@@ -120,27 +120,27 @@ Implementation task board derived from the documents in `docs/`.
 
 ## M8 - Frontend
 
-- [ ] Create `frontend/index.html`.
-- [ ] Create `frontend/styles.css`.
-- [ ] Create `frontend/app.js`.
-- [ ] Build the first screen as the usable analysis workflow.
-- [ ] Add CV file input.
-- [ ] Add job-description textarea.
-- [ ] Add Analyze button.
-- [ ] Add basic client-side required-field validation.
-- [ ] Show initial empty state.
-- [ ] Show loading state while analysis runs.
-- [ ] Show success state with results.
-- [ ] Show error state from API validation failures.
-- [ ] Send request to `/api/v1/analyze`.
-- [ ] Display overall score prominently.
-- [ ] Display semantic similarity.
-- [ ] Display matched keywords.
-- [ ] Display missing keywords.
-- [ ] Display section analysis.
-- [ ] Display Turkish suggestions.
-- [ ] Display extracted CV text preview as secondary or collapsed content.
-- [ ] Keep frontend plain HTML, CSS, and JavaScript.
+- [x] Create `frontend/index.html`.
+- [x] Create `frontend/styles.css`.
+- [x] Create `frontend/app.js`.
+- [x] Build the first screen as the usable analysis workflow.
+- [x] Add CV file input.
+- [x] Add job-description textarea.
+- [x] Add Analyze button.
+- [x] Add basic client-side required-field validation.
+- [x] Show initial empty state.
+- [x] Show loading state while analysis runs.
+- [x] Show success state with results.
+- [x] Show error state from API validation failures.
+- [x] Send request to `/api/v1/analyze`.
+- [x] Display overall score prominently.
+- [x] Display semantic similarity.
+- [x] Display matched keywords.
+- [x] Display missing keywords.
+- [x] Display section analysis.
+- [x] Display Turkish suggestions.
+- [x] Display extracted CV text preview as secondary or collapsed content.
+- [x] Keep frontend plain HTML, CSS, and JavaScript.
 
 ## M9 - Docker
 

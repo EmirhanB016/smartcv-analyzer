@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SmartCV Analyzer</title>
+    <link rel="stylesheet" href="/frontend/styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="page-header">
+        <div>
+          <p class="eyebrow">Portfolio MVP</p>
+          <h1>SmartCV Analyzer</h1>
+          <p class="subtitle">AI-powered CV and job description compatibility analysis</p>
+        </div>
+        <a class="docs-link" href="/docs">API Docs</a>
+      </header>
+
+      <section class="workspace" aria-label="CV analysis workspace">
+        <form id="analysis-form" class="input-panel" novalidate>
+          <div class="panel-header">
+            <h2>Analyze CV</h2>
+            <p>Upload one PDF or DOCX CV and paste the target job description.</p>
+          </div>
+
+          <div class="field-group">
+            <label for="cv-file">Upload CV</label>
+            <input id="cv-file" name="cv_file" type="file" accept=".pdf,.docx">
+            <p class="field-hint">Supported formats: PDF, DOCX. Maximum size: 5 MB.</p>
+          </div>
+
+          <div class="field-group">
+            <label for="job-description">Paste Job Description</label>
+            <textarea
+              id="job-description"
+              name="job_description"
+              rows="14"
+              placeholder="Paste the job description here..."
+            ></textarea>
+          </div>
+
+          <div id="client-error" class="inline-error" role="alert" hidden></div>
+
+          <button id="analyze-button" class="primary-button" type="submit">
+            <span id="button-label">Analyze CV</span>
+          </button>
+        </form>
+
+        <section class="result-panel" aria-live="polite">
+          <div id="empty-state" class="state-box">
+            <h2>Results will appear here</h2>
+            <p>Submit a CV and job description to see score, keywords, sections, suggestions, and extracted text preview.</p>
+          </div>
+
+          <div id="loading-state" class="state-box loading-state" hidden>
+            <div class="spinner" aria-hidden="true"></div>
+            <h2>Analyzing your CV...</h2>
+            <p>The first run may take longer while the local model loads.</p>
+          </div>
+
+          <div id="error-state" class="state-box error-state" role="alert" hidden>
+            <p class="eyebrow">Request failed</p>
+            <h2 id="error-title">Unable to analyze CV</h2>
+            <p id="error-message"></p>
+            <p id="error-code" class="error-code"></p>
+          </div>
+
+          <div id="results-state" class="results" hidden>
+            <div class="score-grid">
+              <article class="metric-card score-card">
+                <span>Overall score</span>
+                <strong id="overall-score">0 / 100</strong>
+              </article>
+              <article class="metric-card">
+                <span>Semantic similarity</span>
+                <strong id="semantic-similarity">0%</strong>
+              </article>
+            </div>
+
+            <section class="result-section" aria-labelledby="matched-heading">
+              <div class="section-title-row">
+                <h2 id="matched-heading">Matched Keywords</h2>
+                <span id="matched-count" class="count-label">0</span>
+              </div>
+              <div id="matched-keywords" class="chip-list"></div>
+              <p id="matched-empty" class="empty-note" hidden>No matched keywords found yet.</p>
+            </section>
+
+            <section class="result-section" aria-labelledby="missing-heading">
+              <div class="section-title-row">
+                <h2 id="missing-heading">Missing Keywords</h2>
+                <span id="missing-count" class="count-label">0</span>
+              </div>
+              <div id="missing-keywords" class="chip-list"></div>
+              <p id="missing-empty" class="empty-note" hidden>No missing keywords detected. Nice alignment.</p>
+            </section>
+
+            <section class="result-section" aria-labelledby="sections-heading">
+              <h2 id="sections-heading">Section Analysis</h2>
+              <div id="section-analysis" class="section-list"></div>
+            </section>
+
+            <section class="result-section" aria-labelledby="suggestions-heading">
+              <h2 id="suggestions-heading">Suggestions</h2>
+              <ul id="suggestions-list" class="suggestion-list"></ul>
+            </section>
+
+            <details class="preview-details">
+              <summary>Extracted CV Text Preview</summary>
+              <pre id="text-preview"></pre>
+            </details>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="/frontend/app.js" defer></script>
+  </body>
+</html>
