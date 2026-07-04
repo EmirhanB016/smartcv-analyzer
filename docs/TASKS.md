@@ -155,21 +155,21 @@ Implementation task board derived from the documents in `docs/`.
 
 ## M10 - Automated Tests
 
-- [ ] Add test dependencies: `pytest` and `httpx`.
-- [ ] Test text cleaning.
-- [ ] Test file extension validation.
-- [ ] Test file size validation.
-- [ ] Test keyword extraction.
-- [ ] Test keyword matching.
-- [ ] Test section detection.
-- [ ] Test score calculation.
-- [ ] Test health endpoint.
-- [ ] Test analyze endpoint with valid PDF.
-- [ ] Test analyze endpoint with valid DOCX.
-- [ ] Test missing file error.
-- [ ] Test empty job description error.
-- [ ] Test unsupported file type error.
-- [ ] Test text extraction failure.
+- [x] Add test dependencies: `pytest` and `httpx`.
+- [x] Test text cleaning.
+- [x] Test file extension validation.
+- [x] Test file size validation.
+- [x] Test keyword extraction.
+- [x] Test keyword matching.
+- [x] Test section detection.
+- [x] Test score calculation.
+- [x] Test health endpoint.
+- [x] Test analyze endpoint with valid PDF.
+- [x] Test analyze endpoint with valid DOCX.
+- [x] Test missing file error.
+- [x] Test empty job description error.
+- [x] Test unsupported file type error.
+- [x] Test text extraction failure.
 
 ## M11 - Postman and Manual Verification
 

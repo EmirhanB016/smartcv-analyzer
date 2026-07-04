@@ -74,9 +74,11 @@ def test_analyze_accepts_valid_docx(monkeypatch) -> None:
     }
     assert 0 <= payload["overall_score"] <= 100
     assert payload["semantic_similarity"] == 0.82
+    assert 0 <= payload["semantic_similarity"] <= 1
     assert "Python" in payload["matched_keywords"]
     assert payload["section_analysis"]
     assert payload["suggestions"]
+    assert any("CV'niz" in suggestion for suggestion in payload["suggestions"])
     assert "FastAPI" in payload["extracted_cv_text_preview"]
 
 
@@ -93,6 +95,7 @@ def test_analyze_accepts_valid_pdf(monkeypatch) -> None:
     assert response.status_code == 200
     assert payload["semantic_similarity"] == 0.76
     assert 0 <= payload["overall_score"] <= 100
+    assert 0 <= payload["semantic_similarity"] <= 1
     assert isinstance(payload["matched_keywords"], list)
     assert isinstance(payload["missing_keywords"], list)
 
