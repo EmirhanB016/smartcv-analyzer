@@ -1,3 +1,7 @@
+![Python](https://img.shields.io/badge/Python-3.11+-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-Backend-green)
+![Docker](https://img.shields.io/badge/Docker-Supported-blue)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 # SmartCV Analyzer
 
 AI-powered CV and job description compatibility analysis system.
@@ -264,6 +268,8 @@ The test suite covers:
 - Feedback generation
 - Analyze API endpoint success and validation errors
 
+At the current MVP stage, the project includes 58 passing automated tests.
+
 ## Postman
 
 Postman files:
@@ -331,6 +337,10 @@ LICENSE
 - Job posting URL parser
 - CI/CD pipeline
 - Deployment to a cloud platform
+
+## Live Demo
+
+Deployment is planned as a future improvement.  
 
 ## Portfolio Highlights
 
