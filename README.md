@@ -74,12 +74,13 @@ The scoring pipeline combines semantic similarity, keyword match ratio, and sect
 
 ## Screenshots
 
-Screenshots can be added after final UI capture.
+### Home Page
 
-Planned screenshot paths:
+![Home Page](docs/screenshots/home-page.png)
 
-- `docs/screenshots/home-page.png`
-- `docs/screenshots/analysis-result.png`
+### Analysis Result
+
+![Analysis Result](docs/screenshots/analysis-result.png)
 
 ## Getting Started
 
