@@ -346,7 +346,12 @@ LICENSE
 
 ## Live Demo
 
-Deployment is planned as a future improvement.  
+The application is live at:
+
+https://smartcv-analyzer.onrender.com
+
+> Note: The live demo runs on a free Render instance, so the first request may be slower after inactivity.
+On low-resource deployment environments, semantic similarity may run in fallback mode to avoid heavy model loading. Local Docker usage can still use the sentence-transformers model.
 
 ## Portfolio Highlights
 
