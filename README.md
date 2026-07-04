@@ -2,6 +2,7 @@
 ![FastAPI](https://img.shields.io/badge/FastAPI-Backend-green)
 ![Docker](https://img.shields.io/badge/Docker-Supported-blue)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
+
 # SmartCV Analyzer
 
 AI-powered CV and job description compatibility analysis system.
@@ -274,7 +275,7 @@ The test suite covers:
 - Feedback generation
 - Analyze API endpoint success and validation errors
 
-At the current MVP stage, the project includes 58 passing automated tests.
+At the current MVP stage, the project includes 62 passing automated tests.
 
 ## Postman
 
@@ -342,7 +343,8 @@ LICENSE
 - Export analysis as PDF
 - Job posting URL parser
 - CI/CD pipeline
-- Deployment to a cloud platform
+- Production deployment with a higher-resource instance
+- Custom domain and HTTPS polish
 
 ## Live Demo
 
@@ -351,7 +353,7 @@ The application is live at:
 https://smartcv-analyzer.onrender.com
 
 > Note: The live demo runs on a free Render instance, so the first request may be slower after inactivity.
-On low-resource deployment environments, semantic similarity may run in fallback mode to avoid heavy model loading. Local Docker usage can still use the sentence-transformers model.
+> On low-resource deployment environments, semantic similarity may run in fallback mode to avoid heavy model loading. Local Docker usage can still use the sentence-transformers model.
 
 ## Portfolio Highlights
 
