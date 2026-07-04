@@ -149,8 +149,10 @@ activemq-data/
 
 # Environments
 .env
+.env.*
 .envrc
 .venv
+.venv/
 env/
 venv/
 ENV/
@@ -208,6 +210,18 @@ tempCodeRunnerFile.py
 
 # PyPI configuration file
 .pypirc
+
+# SmartCV Analyzer local artifacts
+uploads/
+temp/
+tmp/
+.cache/
+.huggingface/
+models/
+*.pt
+*.bin
+*.safetensors
+*.onnx
 
 # Marimo
 marimo/_static/

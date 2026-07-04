@@ -192,18 +192,20 @@ Implementation task board derived from the documents in `docs/`.
 
 ## M12 - GitHub Polish
 
-- [ ] Update `README.md` with clear project description.
-- [ ] Add installation instructions.
-- [ ] Add local development instructions.
-- [ ] Add Docker instructions.
-- [ ] Add API usage examples.
+- [x] Update `README.md` with clear project description.
+- [x] Add installation instructions.
+- [x] Add local development instructions.
+- [x] Add Docker instructions.
+- [x] Add API usage examples.
 - [ ] Add screenshots.
-- [ ] Add realistic example response.
-- [ ] Confirm docs are complete and consistent.
-- [ ] Confirm `.gitignore` excludes virtual environments, cache files, uploaded files, and model caches.
-- [ ] Confirm `LICENSE` is present.
-- [ ] Confirm no paid API keys or secrets are required.
-- [ ] Confirm no sample personal CV data is committed.
+- [x] Add realistic example response.
+- [x] Confirm docs are complete and consistent.
+- [x] Confirm `.gitignore` excludes virtual environments, cache files, uploaded files, and model caches.
+- [x] Confirm `LICENSE` is present.
+- [x] Confirm no paid API keys or secrets are required.
+- [x] Confirm no sample personal CV data is committed.
+
+Note: Screenshot placeholders are documented in `README.md`, but actual screenshot files were not added.
 
 ## Acceptance Checklist
 

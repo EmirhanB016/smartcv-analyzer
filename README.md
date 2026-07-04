@@ -1,162 +1,190 @@
 # SmartCV Analyzer
 
-AI-powered CV analysis system for comparing a resume with a pasted job description and generating practical improvement feedback.
+AI-powered CV and job description compatibility analysis system.
 
-## Project Description
+SmartCV Analyzer analyzes one uploaded PDF or DOCX CV against one manually pasted job description. The web UI, API, code, and documentation are written in English, while user-facing analysis feedback is returned in Turkish.
 
-SmartCV Analyzer is a portfolio-focused software project built around a simple workflow:
+## Project Purpose
 
-1. Upload a CV or resume file.
-2. Paste a job description.
-3. Click Analyze.
-4. View compatibility results and improvement suggestions.
+This is a portfolio MVP project designed to demonstrate practical software engineering across:
 
-The system extracts text from PDF or DOCX CV files, detects important CV sections, extracts job description keywords, compares the CV with the job description, calculates semantic similarity with a multilingual embedding model, and returns Turkish user-facing feedback.
+- FastAPI backend development
+- NLP and rule-based text processing
+- Embedding-based semantic similarity
+- PDF and DOCX file processing
+- REST API design
+- Frontend integration with plain HTML, CSS, and JavaScript
+- Docker containerization
+- Automated tests
+- Postman API testing
 
-The application interface, API, code comments, endpoint names, and documentation are written in English. Analysis results and suggestions shown to users are generated in Turkish.
+The MVP intentionally avoids authentication, databases, paid APIs, and job-posting scraping so the project stays understandable, local-first, and suitable for a developer portfolio.
 
 ## Features
 
-### MVP Features
-
-- Upload PDF and DOCX CV files
-- Paste job description manually
-- Extract text from uploaded CV files
-- Detect important CV sections:
-  - Contact information
-  - Professional summary or profile
-  - Skills
-  - Work experience
-  - Education
-  - Projects
-  - Certifications
-- Extract keywords from the job description
-- Match job description keywords against CV content
-- Detect missing keywords
-- Calculate semantic similarity using `sentence-transformers`
-- Generate an overall compatibility score from 0 to 100
-- Return Turkish feedback and improvement suggestions
-- Provide a simple HTML/CSS/JavaScript frontend
-- Provide FastAPI automatic API documentation
-- Run with Docker and docker-compose
-- Include a Postman testing plan
-
-### Out of Scope for MVP
-
-- User authentication
-- User accounts
-- Database storage
-- Job posting URL scraping
-- Paid AI APIs
-- Multi-document analysis
-- General report analysis
-- Advanced applicant tracking system features
+- PDF and DOCX CV upload
+- Manual job description input
+- CV text extraction
+- Keyword extraction and keyword matching
+- Missing keyword detection
+- Turkish and English CV section detection
+- Embedding-based semantic similarity
+- Overall compatibility score from `0` to `100`
+- Turkish improvement suggestions
+- Simple web interface
+- FastAPI Swagger and ReDoc documentation
+- Docker support
+- Postman collection and environment
+- Automated pytest suite
 
 ## Tech Stack
 
-| Layer | Technology |
+| Area | Technology |
 | --- | --- |
 | Backend | Python, FastAPI |
-| NLP | sentence-transformers, scikit-learn, spaCy or KeyBERT optional |
-| Embeddings | `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2` |
-| PDF extraction | PyMuPDF or pdfplumber |
-| DOCX extraction | python-docx |
+| NLP / Embeddings | `sentence-transformers`, `paraphrase-multilingual-MiniLM-L12-v2` |
+| File Processing | PyMuPDF, python-docx |
 | Frontend | HTML, CSS, JavaScript |
-| API testing | Postman |
+| Testing | pytest, httpx |
 | Containerization | Docker, docker-compose |
+| API Testing | Postman |
 
-## Recommended Model
+## Architecture Overview
 
-Use `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2` for the MVP.
+```text
+Browser
+  |
+  | Upload CV + paste job description
+  v
+FastAPI
+  |
+  |-- Validate file and form fields
+  |-- Extract PDF/DOCX text
+  |-- Clean and normalize text
+  |-- Extract and match keywords
+  |-- Detect CV sections
+  |-- Calculate embeddings and semantic similarity
+  |-- Calculate weighted compatibility score
+  |-- Generate deterministic Turkish suggestions
+  v
+JSON response rendered by the frontend
+```
 
-Reasons:
-
-- Supports Turkish and English
-- Works locally without paid APIs
-- Small enough for a portfolio project
-- Good balance between quality and performance
-- Easy to use with the `sentence-transformers` library
+The scoring pipeline combines semantic similarity, keyword match ratio, and section completeness.
 
 ## Screenshots
 
-Screenshots will be added after the MVP frontend is implemented.
+Screenshots can be added after final UI capture.
 
-Suggested screenshot list:
+Planned screenshot paths:
 
-- Upload and job description form
-- Loading or analysis state
-- Analysis result page
-- Keyword match section
-- Section analysis section
+- `docs/screenshots/home-page.png`
+- `docs/screenshots/analysis-result.png`
 
-## Installation
+## Getting Started
 
-> Code implementation is not part of the current documentation phase. These instructions define the expected setup after implementation.
+### Prerequisites
 
-### Local Setup
+- Python 3.11+
+- Git
+- Docker Desktop, optional
+
+## Local Installation
 
 ```bash
-git clone https://github.com/your-username/smartcv-analyzer.git
+git clone https://github.com/EmirhanB016/smartcv-analyzer.git
 cd smartcv-analyzer
 python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-uvicorn app.main:app --reload
 ```
 
-On Windows PowerShell:
+Activate the virtual environment.
+
+Windows PowerShell:
 
 ```powershell
-python -m venv .venv
 .\.venv\Scripts\Activate.ps1
+```
+
+macOS/Linux:
+
+```bash
+source .venv/bin/activate
+```
+
+Install dependencies and run the app:
+
+```bash
 pip install -r requirements.txt
-uvicorn app.main:app --reload
+python -m uvicorn app.main:app --reload
 ```
 
-The backend should run at:
+Open:
 
 ```text
-http://localhost:8000
+http://localhost:8000/
 ```
 
-FastAPI documentation should be available at:
+## Local Development
 
-```text
-http://localhost:8000/docs
+During development, run FastAPI with reload enabled:
+
+```bash
+python -m uvicorn app.main:app --reload
+```
+
+Useful local URLs:
+
+- Frontend: `http://localhost:8000/`
+- Health check: `http://localhost:8000/health`
+- Swagger UI: `http://localhost:8000/docs`
+- ReDoc: `http://localhost:8000/redoc`
+
+Run tests before committing changes:
+
+```bash
+python -m pytest
 ```
 
 ## Docker Usage
 
-Build and start the MVP with one FastAPI container:
+Build the image:
 
 ```bash
-docker compose up --build
+docker compose build
 ```
 
-The app will be available at:
+Start the app:
 
-```text
-http://localhost:8000
+```bash
+docker compose up
 ```
 
-Useful endpoints:
-
-- Frontend: `http://localhost:8000/`
-- Health check: `http://localhost:8000/health`
-- API docs: `http://localhost:8000/docs`
-- Analyze API: `http://localhost:8000/api/v1/analyze`
-
-Stop the container:
+Stop the app:
 
 ```bash
 docker compose down
 ```
 
-The Compose setup runs a single `smartcv-api` service. The static frontend is served by FastAPI, and no database, Redis, nginx, or separate frontend container is required for the MVP.
+The app runs at:
 
-The first CV analysis inside Docker may take longer because the `sentence-transformers` embedding model can be downloaded on first use. Model files are not committed to the repository.
+```text
+http://localhost:8000/
+```
 
-## API Usage
+The first analysis may take longer because the embedding model can be downloaded or loaded on first use.
+
+## Usage
+
+1. Open `http://localhost:8000/`.
+2. Upload a PDF or DOCX CV.
+3. Paste a job description.
+4. Click **Analyze CV**.
+5. Review the overall score, semantic similarity, matched keywords, missing keywords, section analysis, Turkish suggestions, and extracted CV text preview.
+
+## API Documentation
+
+- Swagger UI: `http://localhost:8000/docs`
+- ReDoc: `http://localhost:8000/redoc`
 
 Main endpoint:
 
@@ -164,52 +192,31 @@ Main endpoint:
 POST /api/v1/analyze
 ```
 
-Request type:
+Health endpoint:
 
-```text
-multipart/form-data
+```http
+GET /health
 ```
 
-Fields:
+## Example API Requests
 
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `cv_file` | File | Yes | PDF or DOCX CV file |
-| `job_description` | String | Yes | Manually pasted job description |
+Health check:
 
-Example response fields:
-
-```json
-{
-  "overall_score": 78,
-  "semantic_similarity": 0.82,
-  "matched_keywords": ["Python", "FastAPI", "Docker"],
-  "missing_keywords": ["Kubernetes", "CI/CD"],
-  "section_analysis": [],
-  "suggestions": [],
-  "extracted_cv_text_preview": "..."
-}
+```bash
+curl http://localhost:8000/health
 ```
 
-See [API_SPEC.md](./API_SPEC.md) for the full API contract.
+Analyze CV:
 
-## Postman Testing
+```bash
+curl -X POST "http://localhost:8000/api/v1/analyze" \
+  -F "cv_file=@sample_cv.pdf" \
+  -F "job_description=We are looking for a Python developer with FastAPI, Docker, SQL, REST API, and CI/CD experience."
+```
 
-The project should include a Postman collection after implementation.
+Use a synthetic or personal-safe local file when testing the upload endpoint.
 
-Minimum test scenarios:
-
-- Valid PDF upload
-- Valid DOCX upload
-- Missing file
-- Empty job description
-- Unsupported file type
-- Large file
-- Corrupted or unreadable file
-
-See [POSTMAN_TEST_PLAN.md](./POSTMAN_TEST_PLAN.md) for the full test plan.
-
-## Example Output
+## Example API Response
 
 ```json
 {
@@ -219,41 +226,123 @@ See [POSTMAN_TEST_PLAN.md](./POSTMAN_TEST_PLAN.md) for the full test plan.
   "missing_keywords": ["CI/CD", "Kubernetes"],
   "section_analysis": [
     {
+      "section": "Skills",
+      "status": "present",
+      "message": "Yetenekler bölümü CV içerisinde tespit edildi."
+    },
+    {
       "section": "Projects",
       "status": "weak",
-      "message": "Projeler bölümü mevcut ancak teknik detaylar ve ölçülebilir çıktılar daha görünür olmalı."
+      "message": "Projeler bölümü mevcut ancak kullanılan teknolojiler, sorumluluklar ve çıktılar daha net yazılabilir."
     }
   ],
   "suggestions": [
-    "CV'nize CI/CD ve Kubernetes deneyiminizi destekleyen örnekler eklemeniz önerilir.",
-    "Projeler bölümünde kullandığınız teknolojileri ve elde ettiğiniz sonuçları daha net belirtin."
+    "CV'niz iş ilanıyla genel olarak uyumlu görünüyor.",
+    "Eğer bu alanlarda deneyiminiz varsa, CI/CD ve Kubernetes gibi anahtar kelimeleri CV'nizde daha görünür hale getirebilirsiniz."
   ],
-  "extracted_cv_text_preview": "Software Developer with experience in Python..."
+  "extracted_cv_text_preview": "Software Developer with experience in Python, FastAPI, Docker and REST API development..."
 }
+```
+
+## Testing
+
+Run the automated test suite:
+
+```bash
+python -m pytest
+```
+
+The test suite covers:
+
+- Text cleaning and normalization
+- File validation
+- File extraction
+- Keyword extraction and matching
+- Section detection
+- Embedding and scoring helpers
+- Feedback generation
+- Analyze API endpoint success and validation errors
+
+## Postman
+
+Postman files:
+
+- `postman/SmartCV_Analyzer.postman_collection.json`
+- `postman/SmartCV_Analyzer.postman_environment.json`
+
+Import both files into Postman, select the `SmartCV Analyzer Local` environment, and run the requests.
+
+The environment provides:
+
+```text
+base_url = http://localhost:8000
+```
+
+See [docs/POSTMAN_TEST_PLAN.md](docs/POSTMAN_TEST_PLAN.md) for request details and manual verification steps.
+
+## Project Structure
+
+```text
+app/
+  api/
+  core/
+  schemas/
+  services/
+  utils/
+frontend/
+docs/
+postman/
+tests/
+Dockerfile
+docker-compose.yml
+requirements.txt
+README.md
+LICENSE
 ```
 
 ## Documentation
 
-- [PRD.md](./PRD.md)
-- [TECHNICAL_ARCHITECTURE.md](./TECHNICAL_ARCHITECTURE.md)
-- [API_SPEC.md](./API_SPEC.md)
-- [SCORING_LOGIC.md](./SCORING_LOGIC.md)
-- [DEVELOPMENT_PLAN.md](./DEVELOPMENT_PLAN.md)
-- [POSTMAN_TEST_PLAN.md](./POSTMAN_TEST_PLAN.md)
+- [docs/PRD.md](docs/PRD.md)
+- [docs/TECHNICAL_ARCHITECTURE.md](docs/TECHNICAL_ARCHITECTURE.md)
+- [docs/API_SPEC.md](docs/API_SPEC.md)
+- [docs/SCORING_LOGIC.md](docs/SCORING_LOGIC.md)
+- [docs/DEVELOPMENT_PLAN.md](docs/DEVELOPMENT_PLAN.md)
+- [docs/POSTMAN_TEST_PLAN.md](docs/POSTMAN_TEST_PLAN.md)
+- [docs/TASKS.md](docs/TASKS.md)
+
+## Limitations
+
+- OCR is not included; scanned or image-only PDFs may fail text extraction.
+- No authentication.
+- No database persistence.
+- No job posting URL scraping.
+- Analysis is deterministic and heuristic-based, not a replacement for professional career advice.
+- The embedding model may take time to download or load on first run.
 
 ## Future Improvements
 
-- User accounts and saved analysis history
-- Database support
-- Multiple CV versions per user
-- Job description URL import
-- More advanced Turkish NLP
-- ATS-style formatting checks
+- OCR support for scanned PDFs
+- User accounts and saved analyses
+- Database persistence
+- More advanced keyword extraction
+- Better multilingual NLP support
 - Export analysis as PDF
-- Admin dashboard for usage analytics
-- Support for additional file types
-- Model comparison and configurable scoring weights
+- Job posting URL parser
+- CI/CD pipeline
+- Deployment to a cloud platform
 
-## Portfolio Value
+## Portfolio Highlights
 
-This project demonstrates practical software engineering skills across backend development, NLP, file processing, API design, frontend integration, Docker, and technical documentation. It is intentionally scoped as a realistic junior to mid-level developer portfolio project while still showing applied AI and product thinking.
+SmartCV Analyzer is useful as a developer portfolio project because it demonstrates:
+
+- End-to-end backend, frontend, and NLP workflow
+- Real-world file upload and document analysis use case
+- API-first design with FastAPI docs
+- Dockerized local execution
+- Automated tests
+- Postman manual verification
+- Clear milestone-based documentation
+
+## License
+
+This project is licensed under the MIT License. See [LICENSE](LICENSE).
