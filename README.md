@@ -127,18 +127,34 @@ http://localhost:8000/docs
 
 ## Docker Usage
 
-Expected Docker workflow:
+Build and start the MVP with one FastAPI container:
 
 ```bash
 docker compose up --build
 ```
 
-Expected services:
+The app will be available at:
 
-- `api`: FastAPI backend
-- `frontend`: static web interface, or served directly by FastAPI for MVP simplicity
+```text
+http://localhost:8000
+```
 
-No database service is required for the MVP.
+Useful endpoints:
+
+- Frontend: `http://localhost:8000/`
+- Health check: `http://localhost:8000/health`
+- API docs: `http://localhost:8000/docs`
+- Analyze API: `http://localhost:8000/api/v1/analyze`
+
+Stop the container:
+
+```bash
+docker compose down
+```
+
+The Compose setup runs a single `smartcv-api` service. The static frontend is served by FastAPI, and no database, Redis, nginx, or separate frontend container is required for the MVP.
+
+The first CV analysis inside Docker may take longer because the `sentence-transformers` embedding model can be downloaded on first use. Model files are not committed to the repository.
 
 ## API Usage
 

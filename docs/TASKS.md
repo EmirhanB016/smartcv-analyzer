@@ -144,14 +144,14 @@ Implementation task board derived from the documents in `docs/`.
 
 ## M9 - Docker
 
-- [ ] Add `Dockerfile`.
-- [ ] Add `docker-compose.yml`.
-- [ ] Use one FastAPI container for the MVP.
-- [ ] Install required system dependencies for PDF libraries if needed.
-- [ ] Expose port `8000`.
-- [ ] Configure `uvicorn` startup command.
-- [ ] Optionally serve static frontend files from FastAPI.
-- [ ] Document Docker usage in `README.md`.
+- [x] Add `Dockerfile`.
+- [x] Add `docker-compose.yml`.
+- [x] Use one FastAPI container for the MVP.
+- [x] Install required system dependencies for PDF libraries if needed.
+- [x] Expose port `8000`.
+- [x] Configure `uvicorn` startup command.
+- [x] Optionally serve static frontend files from FastAPI.
+- [x] Document Docker usage in `README.md`.
 
 ## M10 - Automated Tests
 
