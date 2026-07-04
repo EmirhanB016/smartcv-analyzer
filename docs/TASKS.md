@@ -173,22 +173,22 @@ Implementation task board derived from the documents in `docs/`.
 
 ## M11 - Postman and Manual Verification
 
-- [ ] Create Postman collection named `SmartCV Analyzer`.
-- [ ] Add Postman environment variable `base_url = http://localhost:8000`.
-- [ ] Add health check request.
-- [ ] Add valid PDF upload request.
-- [ ] Add valid DOCX upload request.
-- [ ] Add missing file negative request.
-- [ ] Add empty job description negative request.
-- [ ] Add unsupported file type negative request.
-- [ ] Add large file negative request.
-- [ ] Add corrupted or unreadable file negative request.
-- [ ] Add success response assertions for required fields.
-- [ ] Add score range assertion for `overall_score`.
-- [ ] Add semantic similarity range assertion.
-- [ ] Add error response assertions for `detail.code` and `detail.message`.
-- [ ] Manually verify that suggestions are Turkish.
-- [ ] Manually verify no uploaded file is permanently stored.
+- [x] Create Postman collection named `SmartCV Analyzer`.
+- [x] Add Postman environment variable `base_url = http://localhost:8000`.
+- [x] Add health check request.
+- [x] Add valid PDF upload request.
+- [x] Add valid DOCX upload request.
+- [x] Add missing file negative request.
+- [x] Add empty job description negative request.
+- [x] Add unsupported file type negative request.
+- [x] Add large file negative request.
+- [x] Add corrupted or unreadable file negative request.
+- [x] Add success response assertions for required fields.
+- [x] Add score range assertion for `overall_score`.
+- [x] Add semantic similarity range assertion.
+- [x] Add error response assertions for `detail.code` and `detail.message`.
+- [x] Manually verify that suggestions are Turkish.
+- [x] Manually verify no uploaded file is permanently stored.
 
 ## M12 - GitHub Polish
 

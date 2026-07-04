@@ -1,0 +1,470 @@
+{
+  "info": {
+    "_postman_id": "smartcv-analyzer-collection",
+    "name": "SmartCV Analyzer",
+    "description": "Manual verification collection for the SmartCV Analyzer FastAPI MVP.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/health",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "health"
+          ]
+        },
+        "description": "Verifies that the FastAPI app is running."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const json = pm.response.json();",
+              "",
+              "pm.test(\"Response has status ok\", function () {",
+              "  pm.expect(json).to.have.property(\"status\", \"ok\");",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Analyze CV - Valid PDF",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "cv_file",
+              "type": "file",
+              "src": [],
+              "description": "Select a readable synthetic or personal-safe PDF CV manually."
+            },
+            {
+              "key": "job_description",
+              "type": "text",
+              "value": "Python ve FastAPI ile REST API geliştiren, Docker, SQL, PostgreSQL, Git, GitHub ve CI/CD süreçlerine hakim backend developer arıyoruz. Adayın proje geliştirme, API tasarımı, veritabanı modelleme ve ekip içi iletişim konularında deneyimli olması beklenir."
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/analyze",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "analyze"
+          ]
+        },
+        "description": "Valid PDF happy path. Select a local PDF CV before sending."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const json = pm.response.json();",
+              "",
+              "pm.test(\"Response contains required fields\", function () {",
+              "  pm.expect(json).to.have.property(\"overall_score\");",
+              "  pm.expect(json).to.have.property(\"semantic_similarity\");",
+              "  pm.expect(json).to.have.property(\"matched_keywords\");",
+              "  pm.expect(json).to.have.property(\"missing_keywords\");",
+              "  pm.expect(json).to.have.property(\"section_analysis\");",
+              "  pm.expect(json).to.have.property(\"suggestions\");",
+              "  pm.expect(json).to.have.property(\"extracted_cv_text_preview\");",
+              "});",
+              "",
+              "pm.test(\"overall_score is between 0 and 100\", function () {",
+              "  pm.expect(json.overall_score).to.be.within(0, 100);",
+              "});",
+              "",
+              "pm.test(\"semantic_similarity is between 0 and 1\", function () {",
+              "  pm.expect(json.semantic_similarity).to.be.within(0, 1);",
+              "});",
+              "",
+              "pm.test(\"Array fields are arrays\", function () {",
+              "  pm.expect(json.matched_keywords).to.be.an(\"array\");",
+              "  pm.expect(json.missing_keywords).to.be.an(\"array\");",
+              "  pm.expect(json.section_analysis).to.be.an(\"array\");",
+              "  pm.expect(json.suggestions).to.be.an(\"array\");",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Analyze CV - Valid DOCX",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "cv_file",
+              "type": "file",
+              "src": [],
+              "description": "Select a readable synthetic or personal-safe DOCX CV manually."
+            },
+            {
+              "key": "job_description",
+              "type": "text",
+              "value": "Python ve FastAPI ile REST API geliştiren, Docker, SQL, PostgreSQL, Git, GitHub ve CI/CD süreçlerine hakim backend developer arıyoruz. Adayın proje geliştirme, API tasarımı, veritabanı modelleme ve ekip içi iletişim konularında deneyimli olması beklenir."
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/analyze",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "analyze"
+          ]
+        },
+        "description": "Valid DOCX happy path. Select a local DOCX CV before sending."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const json = pm.response.json();",
+              "",
+              "pm.test(\"Response contains required fields\", function () {",
+              "  pm.expect(json).to.have.property(\"overall_score\");",
+              "  pm.expect(json).to.have.property(\"semantic_similarity\");",
+              "  pm.expect(json).to.have.property(\"matched_keywords\");",
+              "  pm.expect(json).to.have.property(\"missing_keywords\");",
+              "  pm.expect(json).to.have.property(\"section_analysis\");",
+              "  pm.expect(json).to.have.property(\"suggestions\");",
+              "  pm.expect(json).to.have.property(\"extracted_cv_text_preview\");",
+              "});",
+              "",
+              "pm.test(\"overall_score is between 0 and 100\", function () {",
+              "  pm.expect(json.overall_score).to.be.within(0, 100);",
+              "});",
+              "",
+              "pm.test(\"semantic_similarity is between 0 and 1\", function () {",
+              "  pm.expect(json.semantic_similarity).to.be.within(0, 1);",
+              "});",
+              "",
+              "pm.test(\"Array fields are arrays\", function () {",
+              "  pm.expect(json.matched_keywords).to.be.an(\"array\");",
+              "  pm.expect(json.missing_keywords).to.be.an(\"array\");",
+              "  pm.expect(json.section_analysis).to.be.an(\"array\");",
+              "  pm.expect(json.suggestions).to.be.an(\"array\");",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Analyze CV - Missing File",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "job_description",
+              "type": "text",
+              "value": "Python ve FastAPI bilen backend developer arıyoruz."
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/analyze",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "analyze"
+          ]
+        },
+        "description": "Negative case with no cv_file field. The implemented API returns custom MISSING_FILE."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 400\", function () {",
+              "  pm.response.to.have.status(400);",
+              "});",
+              "",
+              "const json = pm.response.json();",
+              "",
+              "pm.test(\"Error response has detail code and message\", function () {",
+              "  pm.expect(json).to.have.property(\"detail\");",
+              "  pm.expect(json.detail).to.have.property(\"code\", \"MISSING_FILE\");",
+              "  pm.expect(json.detail).to.have.property(\"message\");",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Analyze CV - Empty Job Description",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "cv_file",
+              "type": "file",
+              "src": [],
+              "description": "Select any valid readable PDF or DOCX CV manually."
+            },
+            {
+              "key": "job_description",
+              "type": "text",
+              "value": ""
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/analyze",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "analyze"
+          ]
+        },
+        "description": "Negative case where job_description is empty."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 400\", function () {",
+              "  pm.response.to.have.status(400);",
+              "});",
+              "",
+              "const json = pm.response.json();",
+              "",
+              "pm.test(\"Error response has detail code and message\", function () {",
+              "  pm.expect(json).to.have.property(\"detail\");",
+              "  pm.expect(json.detail).to.have.property(\"code\", \"EMPTY_JOB_DESCRIPTION\");",
+              "  pm.expect(json.detail).to.have.property(\"message\");",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Analyze CV - Unsupported File Type",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "cv_file",
+              "type": "file",
+              "src": [],
+              "description": "Select a local .txt, .png, or .zip file manually."
+            },
+            {
+              "key": "job_description",
+              "type": "text",
+              "value": "Python ve FastAPI bilen backend developer arıyoruz."
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/analyze",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "analyze"
+          ]
+        },
+        "description": "Negative case for unsupported upload extension."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 415\", function () {",
+              "  pm.response.to.have.status(415);",
+              "});",
+              "",
+              "const json = pm.response.json();",
+              "",
+              "pm.test(\"Error response has detail code and message\", function () {",
+              "  pm.expect(json).to.have.property(\"detail\");",
+              "  pm.expect(json.detail).to.have.property(\"code\", \"UNSUPPORTED_FILE_TYPE\");",
+              "  pm.expect(json.detail).to.have.property(\"message\");",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Analyze CV - Large File",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "cv_file",
+              "type": "file",
+              "src": [],
+              "description": "Select a PDF or DOCX file larger than 5 MB manually."
+            },
+            {
+              "key": "job_description",
+              "type": "text",
+              "value": "Python ve FastAPI bilen backend developer arıyoruz."
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/analyze",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "analyze"
+          ]
+        },
+        "description": "Negative case for the 5 MB upload limit."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 413\", function () {",
+              "  pm.response.to.have.status(413);",
+              "});",
+              "",
+              "const json = pm.response.json();",
+              "",
+              "pm.test(\"Error response has detail code and message\", function () {",
+              "  pm.expect(json).to.have.property(\"detail\");",
+              "  pm.expect(json.detail).to.have.property(\"code\", \"FILE_TOO_LARGE\");",
+              "  pm.expect(json.detail).to.have.property(\"message\");",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Analyze CV - Corrupted or Unreadable File",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "cv_file",
+              "type": "file",
+              "src": [],
+              "description": "Select a corrupted PDF or invalid DOCX manually."
+            },
+            {
+              "key": "job_description",
+              "type": "text",
+              "value": "Python ve FastAPI bilen backend developer arıyoruz."
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/analyze",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "analyze"
+          ]
+        },
+        "description": "Negative case for unreadable CV text extraction."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 422\", function () {",
+              "  pm.response.to.have.status(422);",
+              "});",
+              "",
+              "const json = pm.response.json();",
+              "",
+              "pm.test(\"Error response has detail code and message\", function () {",
+              "  pm.expect(json).to.have.property(\"detail\");",
+              "  pm.expect(json.detail).to.have.property(\"code\", \"TEXT_EXTRACTION_FAILED\");",
+              "  pm.expect(json.detail).to.have.property(\"message\");",
+              "});"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

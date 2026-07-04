@@ -2,83 +2,108 @@
 
 ## Overview
 
-This document defines the Postman testing plan for the SmartCV Analyzer MVP. The purpose is to verify the FastAPI endpoints, request validation, file upload behavior, and response structure.
+This document defines manual Postman verification for the SmartCV Analyzer MVP. The goal is to confirm the FastAPI app, file upload behavior, validation errors, and response schema using the exported Postman collection.
 
-## Postman Collection
+## Files
 
-Recommended collection name:
+Import these files into Postman:
+
+```text
+postman/SmartCV_Analyzer.postman_collection.json
+postman/SmartCV_Analyzer.postman_environment.json
+```
+
+Collection name:
 
 ```text
 SmartCV Analyzer
 ```
 
-Recommended environment:
+Environment name:
+
+```text
+SmartCV Analyzer Local
+```
+
+Environment variable:
 
 | Variable | Value |
 | --- | --- |
 | `base_url` | `http://localhost:8000` |
 
-## Endpoints to Test
+## Import Steps
 
-| Method | Endpoint | Purpose |
-| --- | --- | --- |
-| `GET` | `{{base_url}}/health` | Verify API is running |
-| `POST` | `{{base_url}}/api/v1/analyze` | Analyze uploaded CV against job description |
+1. Open Postman.
+2. Select **Import**.
+3. Import `postman/SmartCV_Analyzer.postman_collection.json`.
+4. Import `postman/SmartCV_Analyzer.postman_environment.json`.
+5. Select the `SmartCV Analyzer Local` environment from the environment selector.
+6. Confirm `base_url` is set to `http://localhost:8000`.
 
-## Test Case Summary
+## Start The App
 
-| ID | Scenario | Expected Status |
-| --- | --- | --- |
-| TC-001 | Health check | 200 |
-| TC-002 | Valid PDF upload | 200 |
-| TC-003 | Valid DOCX upload | 200 |
-| TC-004 | Missing file | 400 |
-| TC-005 | Empty job description | 400 |
-| TC-006 | Unsupported file type | 415 |
-| TC-007 | Large file | 413 |
-| TC-008 | Corrupted or unreadable file | 422 |
+### Local Python
 
-## TC-001: Health Check
-
-### Request
-
-```http
-GET {{base_url}}/health
+```bash
+python -m uvicorn app.main:app --reload
 ```
 
-### Expected Response
+### Docker
 
-```json
-{
-  "status": "ok"
-}
+```bash
+docker compose up
 ```
 
-## TC-002: Valid PDF Upload Scenario
-
-### Request
-
-```http
-POST {{base_url}}/api/v1/analyze
-Content-Type: multipart/form-data
-```
-
-### Form Data
-
-| Key | Type | Value |
-| --- | --- | --- |
-| `cv_file` | File | `sample_cv.pdf` |
-| `job_description` | Text | Realistic software developer job description |
-
-### Expected Response
-
-Status:
+The app should be available at:
 
 ```text
-200 OK
+http://localhost:8000
 ```
 
-Expected fields:
+Useful URLs:
+
+- Frontend: `http://localhost:8000/`
+- Health check: `http://localhost:8000/health`
+- API docs: `http://localhost:8000/docs`
+- Analyze endpoint: `http://localhost:8000/api/v1/analyze`
+
+The first analysis may take longer because the `sentence-transformers` model can be downloaded or loaded on first use.
+
+## Test Files To Select Manually
+
+The Postman collection does not hardcode local file paths. For file upload requests, select local files manually in Postman.
+
+Use personal-safe or synthetic files only:
+
+| Request | File to select |
+| --- | --- |
+| Analyze CV - Valid PDF | A readable `.pdf` CV or small synthetic PDF |
+| Analyze CV - Valid DOCX | A readable `.docx` CV or small synthetic DOCX |
+| Analyze CV - Empty Job Description | Any readable `.pdf` or `.docx` CV |
+| Analyze CV - Unsupported File Type | A `.txt`, `.png`, `.zip`, or other unsupported file |
+| Analyze CV - Large File | A `.pdf` or `.docx` file larger than 5 MB |
+| Analyze CV - Corrupted or Unreadable File | A corrupted PDF or invalid DOCX |
+
+Do not commit real personal CVs, uploaded files, or model caches.
+
+Scanned or image-only PDFs may return `TEXT_EXTRACTION_FAILED` because OCR is not included in the MVP.
+
+## Requests
+
+| ID | Request | Method | Expected Status |
+| --- | --- | --- | --- |
+| TC-001 | Health Check | `GET` | `200` |
+| TC-002 | Analyze CV - Valid PDF | `POST` | `200` |
+| TC-003 | Analyze CV - Valid DOCX | `POST` | `200` |
+| TC-004 | Analyze CV - Missing File | `POST` | `400` |
+| TC-005 | Analyze CV - Empty Job Description | `POST` | `400` |
+| TC-006 | Analyze CV - Unsupported File Type | `POST` | `415` |
+| TC-007 | Analyze CV - Large File | `POST` | `413` |
+| TC-008 | Analyze CV - Corrupted or Unreadable File | `POST` | `422` |
+
+## Success Response Shape
+
+Successful analyze responses should include:
 
 ```json
 {
@@ -92,62 +117,26 @@ Expected fields:
 }
 ```
 
-Validation checks:
+Postman tests assert:
 
-- `overall_score` is between 0 and 100.
-- `semantic_similarity` is between 0 and 1.
+- Status code is `200`.
+- `overall_score` exists and is between `0` and `100`.
+- `semantic_similarity` exists and is between `0` and `1`.
 - `matched_keywords` is an array.
 - `missing_keywords` is an array.
 - `section_analysis` is an array.
 - `suggestions` is an array.
-- Suggestions are written in Turkish.
-- `extracted_cv_text_preview` is not empty.
+- `extracted_cv_text_preview` exists.
 
-## TC-003: Valid DOCX Upload Scenario
+Manual checks:
 
-### Request
+- Suggestions and section messages should be Turkish.
+- The score should be plausible for the selected CV and job description.
+- The extracted text preview should not contain unrelated local file data.
 
-```http
-POST {{base_url}}/api/v1/analyze
-Content-Type: multipart/form-data
-```
+## Error Response Shape
 
-### Form Data
-
-| Key | Type | Value |
-| --- | --- | --- |
-| `cv_file` | File | `sample_cv.docx` |
-| `job_description` | Text | Realistic software developer job description |
-
-### Expected Response
-
-Status:
-
-```text
-200 OK
-```
-
-Expected behavior:
-
-- DOCX text is extracted successfully.
-- Response schema matches the API spec.
-- Turkish feedback is returned.
-
-## TC-004: Missing File Scenario
-
-### Request
-
-Send only `job_description`, without `cv_file`.
-
-### Expected Response
-
-Status:
-
-```text
-400 Bad Request
-```
-
-Body:
+Validation errors should follow this shape:
 
 ```json
 {
@@ -158,152 +147,36 @@ Body:
 }
 ```
 
-## TC-005: Empty Job Description Scenario
+Postman tests assert:
 
-### Request
+- The expected status code is returned.
+- `detail.code` exists.
+- `detail.message` exists.
+- The expected error code is returned for each negative request.
 
-Send `cv_file` with an empty `job_description`.
+## Expected Error Codes
 
-### Expected Response
+| Scenario | Status | Code |
+| --- | ---: | --- |
+| Missing file | `400` | `MISSING_FILE` |
+| Empty job description | `400` | `EMPTY_JOB_DESCRIPTION` |
+| Unsupported file type | `415` | `UNSUPPORTED_FILE_TYPE` |
+| File larger than 5 MB | `413` | `FILE_TOO_LARGE` |
+| Corrupted or unreadable file | `422` | `TEXT_EXTRACTION_FAILED` |
 
-Status:
-
-```text
-400 Bad Request
-```
-
-Body:
-
-```json
-{
-  "detail": {
-    "code": "EMPTY_JOB_DESCRIPTION",
-    "message": "Job description must not be empty."
-  }
-}
-```
-
-## TC-006: Unsupported File Type Scenario
-
-### Request
-
-Upload a `.txt`, `.png`, or `.zip` file as `cv_file`.
-
-### Expected Response
-
-Status:
-
-```text
-415 Unsupported Media Type
-```
-
-Body:
-
-```json
-{
-  "detail": {
-    "code": "UNSUPPORTED_FILE_TYPE",
-    "message": "Only PDF and DOCX files are supported."
-  }
-}
-```
-
-## TC-007: Large File Scenario
-
-### Request
-
-Upload a PDF or DOCX file larger than the configured MVP limit, recommended 5 MB.
-
-### Expected Response
-
-Status:
-
-```text
-413 Payload Too Large
-```
-
-Body:
-
-```json
-{
-  "detail": {
-    "code": "FILE_TOO_LARGE",
-    "message": "The uploaded file exceeds the 5 MB size limit."
-  }
-}
-```
-
-## TC-008: Corrupted or Unreadable File Scenario
-
-### Request
-
-Upload a corrupted PDF or DOCX file.
-
-### Expected Response
-
-Status:
-
-```text
-422 Unprocessable Entity
-```
-
-Body:
-
-```json
-{
-  "detail": {
-    "code": "TEXT_EXTRACTION_FAILED",
-    "message": "Could not extract readable text from the uploaded CV."
-  }
-}
-```
-
-## Suggested Postman Test Scripts
-
-### Success Response Script
-
-```javascript
-pm.test("Status code is 200", function () {
-  pm.response.to.have.status(200);
-});
-
-pm.test("Response contains required fields", function () {
-  const json = pm.response.json();
-  pm.expect(json).to.have.property("overall_score");
-  pm.expect(json).to.have.property("semantic_similarity");
-  pm.expect(json).to.have.property("matched_keywords");
-  pm.expect(json).to.have.property("missing_keywords");
-  pm.expect(json).to.have.property("section_analysis");
-  pm.expect(json).to.have.property("suggestions");
-  pm.expect(json).to.have.property("extracted_cv_text_preview");
-});
-
-pm.test("Score is between 0 and 100", function () {
-  const json = pm.response.json();
-  pm.expect(json.overall_score).to.be.at.least(0);
-  pm.expect(json.overall_score).to.be.at.most(100);
-});
-```
-
-### Error Response Script
-
-```javascript
-pm.test("Response contains error detail", function () {
-  const json = pm.response.json();
-  pm.expect(json).to.have.property("detail");
-  pm.expect(json.detail).to.have.property("code");
-  pm.expect(json.detail).to.have.property("message");
-});
-```
+The implemented API accepts an optional upload field at the FastAPI boundary and maps a missing file to the documented custom `MISSING_FILE` response.
 
 ## Manual Verification Checklist
 
-- Health endpoint returns 200.
-- Analyze endpoint accepts PDF.
-- Analyze endpoint accepts DOCX.
-- API rejects unsupported files.
-- API rejects empty job descriptions.
-- API response fields match `API_SPEC.md`.
-- User-facing suggestions are Turkish.
-- Score values are numeric and within expected ranges.
-- No uploaded file is permanently stored in the MVP.
+- Import the collection and environment successfully.
+- Select the `SmartCV Analyzer Local` environment.
+- Confirm every request URL uses `{{base_url}}`.
+- Run `Health Check` and confirm `{"status": "ok"}`.
+- Run valid PDF and DOCX requests with selected local files.
+- Confirm success responses include all required fields.
+- Confirm `overall_score` is within `0..100`.
+- Confirm `semantic_similarity` is within `0..1`.
+- Confirm suggestions and section messages are Turkish.
+- Run each negative request and confirm the expected `detail.code`.
+- Confirm no local absolute file paths are stored in the collection.
+- Confirm uploaded files are not written permanently by the application.
