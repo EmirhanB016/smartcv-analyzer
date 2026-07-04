@@ -176,6 +176,10 @@ The app runs at:
 http://localhost:8000/
 ```
 
+The Docker image defaults to port `8000` locally. On deployment platforms that provide a `PORT` environment variable, such as Render, the container binds Uvicorn to that provided port automatically.
+
+For deployment, the Docker image installs CPU-only PyTorch from the official PyTorch CPU wheel index before installing `requirements.txt`. This avoids unnecessary CUDA and NVIDIA packages while keeping `sentence-transformers` available.
+
 The first analysis may take longer because the embedding model can be downloaded or loaded on first use.
 
 ## Usage
