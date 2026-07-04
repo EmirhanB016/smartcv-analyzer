@@ -41,8 +41,14 @@ const errorMessages = {
   ANALYSIS_FAILED: "The analysis could not be completed. Please try again.",
 };
 
+let isAnalysisPending = false;
+
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
+  if (isAnalysisPending) {
+    return;
+  }
+
   clearClientError();
 
   const validationMessage = validateForm();
@@ -51,6 +57,7 @@ form.addEventListener("submit", async (event) => {
     return;
   }
 
+  isAnalysisPending = true;
   setLoading(true);
   showState("loading");
 
@@ -62,6 +69,7 @@ form.addEventListener("submit", async (event) => {
     renderError(error);
     showState("error");
   } finally {
+    isAnalysisPending = false;
     setLoading(false);
   }
 });

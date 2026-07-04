@@ -2,6 +2,8 @@
 
 from app.services.embeddings import (
     EMBEDDING_MODEL_NAME,
+    FALLBACK_SEMANTIC_SIMILARITY_NAME,
+    calculate_fallback_semantic_similarity,
     calculate_cosine_similarity,
     calculate_semantic_similarity,
     generate_embedding,
@@ -10,6 +12,8 @@ from app.services.embeddings import (
 
 __all__ = [
     "EMBEDDING_MODEL_NAME",
+    "FALLBACK_SEMANTIC_SIMILARITY_NAME",
+    "calculate_fallback_semantic_similarity",
     "calculate_cosine_similarity",
     "calculate_semantic_similarity",
     "generate_embedding",

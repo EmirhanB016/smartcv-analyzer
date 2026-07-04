@@ -100,6 +100,40 @@ def test_analyze_accepts_valid_pdf(monkeypatch) -> None:
     assert isinstance(payload["missing_keywords"], list)
 
 
+def test_analyze_returns_required_fields_when_embeddings_are_disabled(monkeypatch) -> None:
+    monkeypatch.setenv("SMARTCV_EMBEDDINGS_ENABLED", "false")
+
+    response = client.post(
+        "/api/v1/analyze",
+        files={
+            "cv_file": (
+                "cv.docx",
+                _build_docx_bytes(CV_TEXT),
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            )
+        },
+        data={"job_description": JOB_DESCRIPTION},
+    )
+
+    payload = response.json()
+    assert response.status_code == 200
+    assert set(payload) == {
+        "overall_score",
+        "semantic_similarity",
+        "matched_keywords",
+        "missing_keywords",
+        "section_analysis",
+        "suggestions",
+        "extracted_cv_text_preview",
+    }
+    assert 0 <= payload["overall_score"] <= 100
+    assert 0 <= payload["semantic_similarity"] <= 1
+    assert isinstance(payload["matched_keywords"], list)
+    assert isinstance(payload["missing_keywords"], list)
+    assert payload["section_analysis"]
+    assert payload["suggestions"]
+
+
 def test_analyze_missing_file_returns_documented_error() -> None:
     response = client.post(
         "/api/v1/analyze",

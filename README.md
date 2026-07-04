@@ -180,6 +180,8 @@ The Docker image defaults to port `8000` locally. On deployment platforms that p
 
 For deployment, the Docker image installs CPU-only PyTorch from the official PyTorch CPU wheel index before installing `requirements.txt`. This avoids unnecessary CUDA and NVIDIA packages while keeping `sentence-transformers` available.
 
+On low-resource deployment platforms, set `SMARTCV_EMBEDDINGS_ENABLED=false` to skip loading the heavy `sentence-transformers` model. The API will keep the same response schema and use a lightweight token-overlap semantic similarity fallback.
+
 The first analysis may take longer because the embedding model can be downloaded or loaded on first use.
 
 ## Usage
